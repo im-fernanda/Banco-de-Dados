@@ -133,7 +133,6 @@ WHERE CA.id_curso NOT IN (
 		WHERE nome = 'TADS' AND instituicao = 'UFRN'))
 
 
-
 --Q17.) Selecionar os alunos que estão cursando o TADS e estão cursando Engenharia de Computação
 SELECT A.nome, A.sobrenome, C.nome AS nome_curso
 FROM Aluno A
