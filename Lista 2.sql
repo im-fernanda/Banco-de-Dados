@@ -40,7 +40,7 @@ ALTER TABLE Aluno ADD COLUMN curso INT;
 ALTER TABLE Aluno ADD CONSTRAINT Curso FOREIGN KEY (curso) REFERENCES Curso(id);
 
 CREATE TABLE CursoAluno (
-	id_aluno INT NOT NULL,
+    id_aluno INT NOT NULL,
     id_curso INT NOT NULL,
     ativo BOOLEAN NOT NULL,
     PRIMARY KEY(id_aluno,id_curso),
@@ -102,7 +102,8 @@ FROM CursoAluno
 WHERE ativo = True;
 
 --Q14.) Selecionar a quantidade de alunos ativos inscritos por curso
-SELECT CA.id_curso, C.nome, COUNT(*) as alunos_ativos_por_curso
+CREATE VIEW Alunos_ativos_por_curso AS
+SELECT CA.id_curso, C.nome, COUNT(*)
 FROM CursoAluno CA
 JOIN Curso C ON CA.id_curso = C.id
 WHERE CA.ativo = TRUE
