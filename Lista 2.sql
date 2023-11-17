@@ -73,9 +73,13 @@ DELETE FROM CursoAluno WHERE id_curso = 5;
 DELETE FROM Curso WHERE nome = 'ENG DA COMPUTACAO';
 
 --Q9.) Buscar todos os alunos com nome Carla (considerando alterações do nome) - usar o LIKE
+
+SELECT nome, sobrenome FROM Aluno WHERE nome LIKE %Carla% or SOBRENOME LIKE %CARLA%
+	
 -- a. Desconsiderar minúsculo e maiúsculo
-SELECT * FROM Aluno WHERE LOWER(nome) LIKE LOWER('Carla');
-SELECT * FROM Aluno WHERE nome ILIKE 'Carla';
+SELECT nome, sobrenome
+FROM Aluno
+WHERE UPPER(nome) LIKE '%CARLA%' OR UPPER(sobrenome) LIKE '%CARLA%';
 
 --Q10.) Selecionar os nomes dos alunos que estão cursando mais de um curso ativo
 SELECT A.nome, A.sobrenome, A.id
