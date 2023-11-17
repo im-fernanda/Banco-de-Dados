@@ -118,18 +118,20 @@ HAVING COUNT(*) > 2;
 
 --Q16.) Selecionar os alunos que estão cursando o TADS e não estão cursando outro curso
 SELECT A.nome, A.sobrenome, C.nome AS nome_curso, C.id AS id_curso
-FROM Aluno A
-JOIN CursoAluno CA ON A.id = CA.id_aluno
-JOIN Curso C ON CA.id_curso = C.id
-GROUP BY A.nome, A.sobrenome, C.nome, C.id;
+FROM Aluno A JOIN CursoAluno CA ON A.id = CA.id_aluno
+WHERE CA.id_curso NOT IN (
+		SELECT id
+		FROM Curso
+		WHERE nome = 'TADS' AND instituicao = 'UFRN'))
 
-SELECT A.nome, A.sobrenome, C.nome AS nome_curso
-FROM Aluno A
-JOIN CursoAluno CA ON A.id = CA.id_aluno
-JOIN Curso C ON CA.id_curso = C.id
-WHERE CA.id_curso = 3 
-GROUP BY A.id, A.nome, A.sobrenome, C.nome
-HAVING COUNT(*) = 1;
+EXCEPT
+(SELECT A.nome, A.sobrenome
+FROM Aluno A JOIN CursoAluno CA ON CA.id_aluno = A.id
+WHERE CA.id_curso NOT IN (
+		SELECT id
+		FROM Curso
+		WHERE nome = 'TADS' AND instituicao = 'UFRN'))
+
 
 
 --Q17.) Selecionar os alunos que estão cursando o TADS e estão cursando Engenharia de Computação
